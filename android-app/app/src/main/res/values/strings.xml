@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Nothing Widget Studio</string>
+    <string name="widget_spotify_name">Spotify Liked Song (Typebase 4x2)</string>
+    <string name="widget_spotify_2x2_name">Spotify Liked Cover (Nothing 2x2)</string>
+    <string name="widget_clock_name">Typebase Clock &amp; Date</string>
+    <string name="widget_battery_name">Nothing Battery Ring</string>
+</resources>

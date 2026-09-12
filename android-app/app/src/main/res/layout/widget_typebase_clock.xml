@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_clock_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_card_bg"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/txt_ndot_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[NOTHING.SYS // 09.12]"
+        android:textColor="@color/nothing_red"
+        android:textSize="10sp"
+        android:fontFamily="monospace" />
+
+    <!-- Massive Typebase Hour & Minute -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/txt_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19"
+            android:textColor="@color/white"
+            android:textSize="54sp"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="-0.04"
+            android:includeFontPadding="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@color/nothing_red"
+            android:textSize="50sp"
+            android:fontFamily="sans-serif-black"
+            android:includeFontPadding="false"
+            android:layout_marginHorizontal="2dp" />
+
+        <TextView
+            android:id="@+id/txt_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:textColor="@color/white"
+            android:textSize="54sp"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="-0.04"
+            android:includeFontPadding="false" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_date_readable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="SAT, 12 SEP 2026"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.05" />
+
+</LinearLayout>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nothing OS × Typebase Widget Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F4F6;
+      --surface-translucent: rgba(255, 255, 255, 0.72);
+      --surface-glass-border: rgba(255, 255, 255, 0.95);
+      --card-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+      --nothing-red: #D71921;
+      --text-black: #0A0A0B;
+      --text-secondary: #56565F;
+      --text-muted: #8E8E98;
+      --font-main: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-black);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(215, 25, 33, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 40%),
+        radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 20px 20px;
+    }
+
+    /* Top Branding Bar */
+    header {
+      text-align: center;
+      max-width: 900px;
+      margin-bottom: 36px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-black);
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .red-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--nothing-red);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--text-black);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-family: var(--font-mono);
+    }
+
+    /* Layout Grid */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 380px 420px;
+      gap: 36px;
+      width: 100%;
+      max-width: 860px;
+      align-items: start;
+    }
+
+    @media (max-width: 840px) {
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Glass Control Panel */
+    .glass-panel {
+      background: var(--surface-translucent);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 32px;
+      padding: 28px;
+      backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: var(--card-shadow);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      padding-bottom: 12px;
+    }
+
+    .panel-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--nothing-red);
+      letter-spacing: 1px;
+    }
+
+    .spotify-box {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-black);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-spotify {
+      background: #000000;
+      color: #FFFFFF;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-spotify:hover {
+      background: #18181A;
+      transform: translateY(-2px);
+    }
+
+    .btn-red {
+      background: var(--nothing-red);
+      color: #FFFFFF;
+      margin-top: 10px;
+    }
+
+    .btn-red:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-black);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      margin-top: 8px;
+    }
+
+    .btn-outline:hover {
+      background: #FFFFFF;
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+
+    .input-field {
+      margin-top: 16px;
+    }
+
+    .input-field label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 11px 14px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 12px;
+      color: var(--text-black);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      outline: none;
+      font-weight: 500;
+    }
+
+    .input-field input:focus {
+      border-color: var(--nothing-red);
+    }
+
+    /* Phone (1) Frame Mockup (White / Nothing Edition) */
+    .phone-container {
+      background: #FFFFFF;
+      border: 4px solid #E2E2E6;
+      border-radius: 48px;
+      padding: 20px 16px;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-black);
+      font-weight: 700;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--nothing-red);
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin: 4px 4px 0;
+    }
+
+    /* 2x2 ALBUM COVER WIDGET (Nothing Transparent Glass Style) */
+    .widget-2x2-cover {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 34px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.12);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .widget-2x2-cover:hover {
+      transform: scale(1.02);
+    }
+
+    .cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Glass Frosted Pills inside 2x2 */
+    .pill-top-liked {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      padding: 5px 11px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .pill-bottom-play {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 4x2 Typebase Wide Widget (Light & Clear Translucent) */
+    .widget-4x2 {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      padding: 18px 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .widget-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .track-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .track-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: var(--text-black);
+    }
+
+    .track-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .thumb-square {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      flex-shrink: 0;
+    }
+
+    .thumb-square img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Split Row: Clock & Battery (White Glass) */
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .tile-glass {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      padding: 16px;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .clock-digits {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      margin: 6px 0 4px;
+      color: var(--text-black);
+    }
+
+    .clock-digits span {
+      color: var(--nothing-red);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-pill">
+      <span class="red-dot"></span>
+      <span>NOTHING PHONE (1) // WIDGET STUDIO</span>
+    </div>
+    <h1>TRANSPARENT WIDGETS</h1>
+    <p class="subtitle">Clear glass, high-contrast white &amp; black typography with Nothing Red</p>
+  </header>
+
+  <div class="studio-grid">
+    <!-- Controls Side -->
+    <div class="glass-panel">
+      <div class="panel-header">
+        <span class="panel-tag">[ SPOTIFY // API SYNC ]</span>
+        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">PKCE 2.0</span>
+      </div>
+
+      <div class="spotify-box">
+        <div class="status-row">
+          <div class="red-dot" id="statusDot"></div>
+          <span id="statusText">SPOTIFY: READY TO SYNC</span>
+        </div>
+        <button class="btn btn-spotify" id="btnConnectSpotify">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.503 17.306c-.216.353-.674.467-1.026.25-2.812-1.718-6.352-2.107-10.52-1.155-.403.092-.803-.16-.895-.563-.092-.403.16-.803.563-.895 4.567-1.042 8.483-.604 11.628 1.337.352.217.467.674.25 1.026zm1.47-3.268c-.272.443-.854.584-1.296.312-3.218-1.978-8.125-2.55-11.93-1.395-.499.151-1.028-.135-1.18-.634-.151-.499.135-1.028.634-1.18 4.354-1.32 9.775-.681 13.46 1.583.442.272.583.854.312 1.296zm.126-3.411c-3.859-2.292-10.228-2.503-13.918-1.383-.591.18-1.22-.162-1.4-.753-.18-.591.162-1.22.753-1.4 4.246-1.289 11.28-1.044 15.714 1.588.532.316.706 1.007.39 1.539-.315.532-1.006.707-1.539.39z"/>
+          </svg>
+          Connect Spotify Account
+        </button>
+        <button class="btn btn-outline" id="btnShuffleTrack">
+          ⟳ Shuffle Demo Liked Track
+        </button>
+      </div>
+
+      <div class="panel-header" style="margin-top: 20px;">
+        <span class="panel-tag">[ CUSTOMIZE SONG PREVIEW ]</span>
+      </div>
+
+      <div class="input-field">
+        <label>SONG TITLE</label>
+        <input type="text" id="inputSong" value="STARBOY" />
+      </div>
+      <div class="input-field">
+        <label>ARTIST // ALBUM</label>
+        <input type="text" id="inputArtist" value="THE WEEKND // STARBOY" />
+      </div>
+      <div class="input-field">
+        <label>ALBUM ART URL</label>
+        <input type="text" id="inputArt" value="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&auto=format&fit=crop&q=80" />
+      </div>
+
+      <button class="btn btn-red" id="btnApply">
+        UPDATE LIVE WIDGETS
+      </button>
+    </div>
+
+    <!-- Phone (1) Transparent Mockup -->
+    <div class="phone-container">
+      <div class="phone-top">
+        <span id="phoneClock">19:54</span>
+        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);">PHONE (1) • 88%</span>
+      </div>
+
+      <!-- 2X2 FULL ALBUM COVER WIDGET -->
+      <div class="section-label">[ 2×2 WIDGET // FULL COVER ]</div>
+      <div class="widget-2x2-cover" id="widget2x2">
+        <img class="cover-img" id="imgCover2x2" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&auto=format&fit=crop&q=80" alt="Cover" />
+        
+        <!-- Floating Glass Tag -->
+        <div class="pill-top-liked">
+          <span class="red-dot"></span>
+          <span id="tagLiked">LIKED • 09.12</span>
+        </div>
+
+        <!-- Floating Play Action -->
+        <div class="pill-bottom-play">
+          ▶ PLAY SPOTIFY
+        </div>
+      </div>
+
+      <!-- 4X2 TYPEBASE WIDE WIDGET -->
+      <div class="section-label">[ 4×2 WIDGET // TYPEBASE ]</div>
+      <div class="widget-4x2">
+        <div class="widget-header-row">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="red-dot"></span>
+            <span style="font-family: var(--font-mono); font-size: 10px; color: var(--nothing-red); font-weight:700;">[♥ LIKED RECENT]</span>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">SPOTIFY ⟳</span>
+        </div>
+
+        <div class="track-row">
+          <div>
+            <div class="track-title" id="displayTitle4x2">STARBOY</div>
+            <div class="track-sub" id="displayArtist4x2">THE WEEKND // STARBOY</div>
+          </div>
+          <div class="thumb-square">
+            <img id="imgThumb4x2" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=200&auto=format&fit=crop&q=80" alt="Thumb" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Clock & Battery Split -->
+      <div class="split-row">
+        <div class="tile-glass">
+          <span style="font-family: var(--font-mono); font-size: 9px; color: var(--nothing-red); font-weight:700;">[SYS.TIME]</span>
+          <div class="clock-digits" id="liveClock">19<span>:</span>54</div>
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);">SAT, 12 SEP</span>
+        </div>
+
+        <div class="tile-glass">
+          <span style="font-family: var(--font-mono); font-size: 9px; color: var(--nothing-red); font-weight:700;">[PHONE(1) BATTERY]</span>
+          <div class="clock-digits">88%</div>
+          <div style="width:100%; height:4px; background:rgba(0,0,0,0.08); border-radius:999px; margin-top:6px; overflow:hidden;">
+            <div style="width:88%; height:100%; background:var(--nothing-red);"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const sampleTracks = [
+      {
+        title: "STARBOY",
+        artist: "THE WEEKND // STARBOY",
+        art: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&auto=format&fit=crop&q=80",
+        date: "LIKED • 09.12"
+      },
+      {
+        title: "AFTER HOURS",
+        artist: "THE WEEKND // AFTER HOURS",
+        art: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=80",
+        date: "LIKED • 09.11"
+      },
+      {
+        title: "RANDOM ACCESS",
+        artist: "DAFT PUNK // MEMORIES",
+        art: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80",
+        date: "LIKED • 09.09"
+      }
+    ];
+
+    let trackIdx = 0;
+
+    const imgCover2x2 = document.getElementById("imgCover2x2");
+    const imgThumb4x2 = document.getElementById("imgThumb4x2");
+    const displayTitle4x2 = document.getElementById("displayTitle4x2");
+    const displayArtist4x2 = document.getElementById("displayArtist4x2");
+    const tagLiked = document.getElementById("tagLiked");
+
+    const inputSong = document.getElementById("inputSong");
+    const inputArtist = document.getElementById("inputArtist");
+    const inputArt = document.getElementById("inputArt");
+
+    document.getElementById("btnShuffleTrack").addEventListener("click", () => {
+      trackIdx = (trackIdx + 1) % sampleTracks.length;
+      const t = sampleTracks[trackIdx];
+      imgCover2x2.src = t.art;
+      imgThumb4x2.src = t.art;
+      displayTitle4x2.textContent = t.title;
+      displayArtist4x2.textContent = t.artist;
+      tagLiked.textContent = t.date;
+
+      inputSong.value = t.title;
+      inputArtist.value = t.artist;
+      inputArt.value = t.art;
+    });
+
+    document.getElementById("btnApply").addEventListener("click", () => {
+      if (inputSong.value) displayTitle4x2.textContent = inputSong.value.toUpperCase();
+      if (inputArtist.value) displayArtist4x2.textContent = inputArtist.value.toUpperCase();
+      if (inputArt.value) {
+        imgCover2x2.src = inputArt.value;
+        imgThumb4x2.src = inputArt.value;
+      }
+    });
+
+    // Clock
+    function tick() {
+      const d = new Date();
+      const h = String(d.getHours()).padStart(2, '0');
+      const m = String(d.getMinutes()).padStart(2, '0');
+      document.getElementById("phoneClock").textContent = `${h}:${m}`;
+      document.getElementById("liveClock").innerHTML = `${h}<span>:</span>${m}`;
+    }
+    setInterval(tick, 1000);
+    tick();
+
+    // Spotify button toggle
+    const btnConnect = document.getElementById("btnConnectSpotify");
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+
+    btnConnect.addEventListener("click", () => {
+      if (statusText.textContent.includes("READY")) {
+        statusText.textContent = "SPOTIFY: CONNECTED [LIVE SYNC]";
+        statusDot.style.background = "#1DB954";
+        btnConnect.textContent = "DISCONNECT SPOTIFY";
+      } else {
+        statusText.textContent = "SPOTIFY: READY TO SYNC";
+        statusDot.style.background = "var(--nothing-red)";
+        btnConnect.textContent = "CONNECT SPOTIFY ACCOUNT";
+      }
+    });
+  </script>
+</body>
+</html>

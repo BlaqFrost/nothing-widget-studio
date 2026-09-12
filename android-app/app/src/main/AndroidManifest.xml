@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:name=".NothingWidgetApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NothingWidgets">
+
+        <!-- Companion Studio Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Spotify OAuth Redirect Callback Filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="spotify-callback"
+                    android:scheme="nothingwidgets" />
+            </intent-filter>
+        </activity>
+
+        <!-- Widget 1: Spotify Liked Track (Typebase 4x2) -->
+        <receiver
+            android:name=".spotify.SpotifyLikedWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_spotify_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.nothing.widgets.ACTION_REFRESH_SPOTIFY" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/spotify_widget_info" />
+        </receiver>
+
+        <!-- Widget 1B: Spotify Liked Album Cover Only (2x2) -->
+        <receiver
+            android:name=".spotify.SpotifyLiked2x2WidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_spotify_2x2_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/spotify_widget_2x2_info" />
+        </receiver>
+
+        <!-- Widget 2: Typebase Clock & Date Widget Provider -->
+        <receiver
+            android:name=".TypebaseClockWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_clock_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/typebase_clock_widget_info" />
+        </receiver>
+
+        <!-- Widget 3: Battery & Hardware Ring Widget Provider -->
+        <receiver
+            android:name=".BatteryRingWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_battery_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/battery_ring_widget_info" />
+        </receiver>
+
+    </application>
+
+</manifest>

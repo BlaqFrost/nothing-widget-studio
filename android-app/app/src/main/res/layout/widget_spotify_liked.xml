@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_card_bg"
+    android:padding="16dp">
+
+    <!-- Top Status Bar in Widget -->
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/txt_status_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="[LIKED • SPOTIFY]"
+            android:textColor="@color/nothing_red"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.08" />
+
+        <TextView
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="SYNC ⟳"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            android:fontFamily="monospace" />
+    </LinearLayout>
+
+    <!-- Main Content Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Left Column: Typebase Oversized Typography -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_song_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="STARBOY"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="-0.02" />
+
+            <TextView
+                android:id="@+id/txt_artist_album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="THE WEEKND // STARBOY"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:fontFamily="monospace" />
+
+            <!-- Action Pill Button -->
+            <TextView
+                android:id="@+id/btn_play_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_red_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="5dp"
+                android:text="▶ PLAY SPOTIFY"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:fontFamily="monospace"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Right Column: Album Art Frame -->
+        <FrameLayout
+            android:layout_width="74dp"
+            android:layout_height="74dp">
+
+            <TextView
+                android:id="@+id/art_placeholder_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/art_placeholder_bg"
+                android:gravity="center"
+                android:text="♫"
+                android:textColor="@color/text_secondary"
+                android:textSize="28sp" />
+
+            <ImageView
+                android:id="@+id/img_album_art"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_2x2_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_glass_light_bg"
+    android:padding="6dp">
+
+    <!-- Full Cover Image -->
+    <ImageView
+        android:id="@+id/img_2x2_album_art"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="@drawable/album_corner_mask"
+        android:clipToOutline="true" />
+
+    <!-- Fallback / Empty state placeholder -->
+    <LinearLayout
+        android:id="@+id/layout_2x2_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#F5F5F7"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[NOTHING • SPOTIFY]"
+            android:textColor="#D71921"
+            android:textSize="10sp"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="NO ART"
+            android:textColor="#111111"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black" />
+    </LinearLayout>
+
+    <!-- Top Floating Nothing Pill Tag -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="10dp"
+        android:background="#D9FFFFFF"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#D71921"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/txt_2x2_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIKED"
+            android:textColor="#000000"
+            android:textSize="9sp"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:letterSpacing="0.08" />
+    </LinearLayout>
+
+    <!-- Bottom Mini Floating Spotify Glass Pill -->
+    <TextView
+        android:id="@+id/btn_2x2_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"
+        android:background="#E6000000"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="▶ SPOTIFY"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp"
+        android:fontFamily="monospace"
+        android:textStyle="bold" />
+
+</FrameLayout>
