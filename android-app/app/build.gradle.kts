@@ -36,12 +36,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         viewBinding = true
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -64,5 +65,5 @@ dependencies {
     
     // Security & Encrypted storage for OAuth tokens
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
-    implementation("androidx.browser:androidx.browser:1.8.0")
+    implementation("androidx.browser:androidx.browser:1.7.0")
 }
